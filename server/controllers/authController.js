@@ -87,3 +87,21 @@ exports.logOut = (req, res) => {
     res.clearCookie('jwt');
     res.status(200).json({status: 'success'})
 };
+
+exports.signIn = catchRequest(async (req, res) => {
+    const {username, password} = req.body;
+    if (
+        !username ||
+        !password ||
+        /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/.test(username) ||
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/.test(password)) {
+        throw new AppError('0xE00010', 400);
+    }
+    const user = await User.findOne({username}).select('+password');
+
+    if (!user || !(await user.correctPassword(password, user.password))) {
+        throw new AppError('0xE00011', 401);
+    }
+
+    sendToken(user, 200, res);
+});

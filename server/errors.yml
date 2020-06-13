@@ -14,3 +14,5 @@
 0xE0000D: The uesr belong to this token no longer exists
 0xE0000E: The user has changed the password after creating the token
 0xE0000F: The user don't have permission to do the action
+0xE00010: Request body must have a valid username and password
+0xE00011: Incorrect username or password
