@@ -1,0 +1,12 @@
+0xE00000: A user must have a firstName
+0xE00001: A user must have a valid firstName
+0xE00002: A user must have a lastName
+0xE00003: A user must have a valid lastName
+0xE00004: A user must have a usrename
+0xE00005: A user must have a valid username
+0xE00006: User uesrname is taken
+0xE00007: A user must have a email
+0xE00008: A user must have a valid email
+0xE00009: A user must have a password
+0xE0000A: A user must have a valid password
+0xE0000B: A user must have a valid rote(admin, user, manager, content-creator, student)
