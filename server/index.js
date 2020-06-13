@@ -1,12 +1,15 @@
 const path = require('path');
 const dotenv = require('dotenv');
-const express = require('express');
-const mongoose = require('mongoose');
-const next = require('next');
 
 dotenv.config({
     path: path.join(__dirname, './config.env')
 });
+
+const express = require('express');
+const mongoose = require('mongoose');
+const next = require('next');
+
+const errorHandler = require('./handlers/errorHandler');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({dev});
@@ -31,6 +34,8 @@ app.prepare()
             return handle(req, res);
         });
 
+        server.use(errorHandler);
+
         const Port = process.env.PORT || 3000;
 
         server.listen(Port, err => {
@@ -48,7 +53,7 @@ app.prepare()
             useCreateIndex: true,
             useFindAndModify: false,
             useUnifiedTopology: true
-        }).then(con => {
+        }).then(() => {
             console.log('Connected to DB successfully.');
         });
     })
