@@ -32,3 +32,14 @@ exports.protect = catchRequest(async (req, res, next) => {
     req.user = user;
     next();
 });
+
+exports.restrictTo = (...rotes) => {
+    return catchRequest(
+        async (req, res, next) => {
+            if (rotes.includes(req.user.rote)) {
+                return next();
+            }
+            throw new AppError('0xE0000F', 403);
+        }
+    );
+};
