@@ -17,3 +17,4 @@
 0xE00010: Request body must have a valid username and password
 0xE00011: Incorrect username or password
 0xE00012: Can't find user
+0xE00013: Token is invalid or expired

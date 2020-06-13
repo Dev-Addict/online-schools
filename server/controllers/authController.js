@@ -168,3 +168,24 @@ exports.forgotPassword = catchRequest(
         });
     }
 );
+
+exports.resetPassword = catchRequest(
+    async (req, res) => {
+        const hashedToken =
+            crypto
+                .createHash('sha256')
+                .update(req.params.resetToken)
+                .digest('hex');
+        const user = await User.findOne({
+            passwordResetToken: hashedToken,
+            passwordResetExpires: { $gt: Date.now() }
+        }).select('+passwordResetToken');
+        if (!user) {
+            throw new AppError('0xE00013', 400);
+        }
+        user.password = req.body.password;
+        await user.save();
+
+        sendToken(user, 200, res);
+    }
+);
