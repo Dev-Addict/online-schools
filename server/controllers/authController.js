@@ -199,7 +199,7 @@ exports.verifyEmailToken = catchRequest(
             user = await User.findOne({usernameSlug: req.body.username.toLowerCase()});
         }
         if (!user) {
-            throw new AppError('0xE00013', 404);
+            throw new AppError('0xE00012', 404);
         }
 
         const verifyToken = user.createVerifyEmailToken();
@@ -226,5 +226,26 @@ exports.verifyEmailToken = catchRequest(
             status: 'success',
             message: `We sent the email to user's email(${codedEmail})`
         });
+    }
+);
+
+exports.verifyEmail = catchRequest(
+    async (req, res) => {
+        const hashedToken =
+            crypto
+                .createHash('sha256')
+                .update(req.params.verifyToken)
+                .digest('hex');
+        const user = await User.findOne({
+            verifyEmailToken: hashedToken,
+            verifyEmailExpires: { $gt: Date.now() }
+        }).select('+verifyEmailToken');
+        if (!user) {
+            throw new AppError('0xE00013', 400);
+        }
+        user.isEmailVerified = true;
+        await user.save();
+
+        sendToken(user, 200, res);
     }
 );
