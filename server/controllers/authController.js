@@ -189,3 +189,42 @@ exports.resetPassword = catchRequest(
         sendToken(user, 200, res);
     }
 );
+
+exports.verifyEmailToken = catchRequest(
+    async (req, res) => {
+        let user;
+        if (req.body.email) {
+            user = await User.findOne({email: req.body.email.toLowerCase()});
+        } else if (req.body.username) {
+            user = await User.findOne({usernameSlug: req.body.username.toLowerCase()});
+        }
+        if (!user) {
+            throw new AppError('0xE00013', 404);
+        }
+
+        const verifyToken = user.createVerifyEmailToken();
+        await user.save({
+            validateBeforeSave: false
+        });
+        const verifyURL =
+            `${req.protocol}://${req.get('host')}/api/v1/users/verifyEmail/${verifyToken}`;
+
+        const emailArray = user.email.split('@');
+
+        const codedEmail =
+            `${
+                emailArray[0].substr(0, 2)
+            }${
+                emailArray[0].substr(2, emailArray[0].length - 4).split('').map(char => '*').join('')
+            }${
+                emailArray[0].substr(emailArray[0].length - 2)}@${emailArray[1]
+            }`;
+
+        // Email verify email here
+
+        res.status(200).json({
+            status: 'success',
+            message: `We sent the email to user's email(${codedEmail})`
+        });
+    }
+);
