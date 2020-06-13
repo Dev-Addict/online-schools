@@ -10,3 +10,6 @@
 0xE00009: A user must have a password
 0xE0000A: A user must have a valid password
 0xE0000B: A user must have a valid rote(admin, user, manager, content-creator, student)
+0xE0000C: You are not signed in
+0xE0000D: The uesr belong to this token no longer exists
+0xE0000E: The user has changed the password after creating the token
