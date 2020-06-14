@@ -69,10 +69,10 @@ const userSchema = new mongoose.Schema({
     rote: {
         type: String,
         enum: {
-            values: ['admin', 'user', 'manager', 'content-creator', 'student'],
+            values: ['admin', 'manager', 'content-creator', 'student'],
             message: '0xE0000B'
         },
-        default: 'user'
+        default: 'student'
     },
     verifyEmailToken: {
         type: String,
@@ -151,7 +151,7 @@ userSchema.pre('save', function (next) {
 
 userSchema.pre('save', function (next) {
     if (this.rote === 'admin' && this.isNew) {
-        this.rote = 'user';
+        this.rote = 'student';
     }
     next();
 });
@@ -161,7 +161,7 @@ userSchema.pre('findOneAndUpdate', function(next) {
         this._update.usernameSlug = this._update.username.toLowerCase();
     }
     if (this._update.rote === 'admin') {
-        this._update.rote = 'user';
+        this._update.rote = 'student';
     }
     next()
 });
