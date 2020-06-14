@@ -1,7 +1,7 @@
 import Router from "next/router";
 import Link from "next/link";
 
-import exams from "../api/exams";
+import onlineSchools from "../api/onlineschools";
 
 const Header = ({auth}) => {
     return (
@@ -11,6 +11,22 @@ const Header = ({auth}) => {
                     <div className="header-brand">Online Schools</div>
                 </a>
             </Link>
+            {!auth.isSignedIn &&
+            <div className="header-buttons">
+                <div className="sign-in"
+                     onClick={() => {
+                         Router.push('/sign');
+                     }}>
+                    Sign In
+                </div>
+                <div className="sign-up"
+                     onClick={() => {
+                         Router.push('/sign');
+                     }}>
+                    Sign Up
+                </div>
+            </div>
+            }
             {auth.isSignedIn &&
             <div className="header-dashboard">
                 <Link href="/dashboard">
@@ -18,7 +34,7 @@ const Header = ({auth}) => {
                 </Link>
                 <div className="sign-out"
                      onClick={() => {
-                         exams.post('/users/auth/singout');
+                         onlineSchools.post('/users/auth/signout');
                          Router.push('/');
                      }}>
                     Sign Out

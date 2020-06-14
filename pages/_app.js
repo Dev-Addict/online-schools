@@ -1,5 +1,6 @@
 import App from "next/app";
 
+import onlineSchools from '../api/onlineschools';
 import '../style/main.css';
 
 class _App extends App {
@@ -7,17 +8,8 @@ class _App extends App {
         let pageProps = {};
         const auth = {};
 
-        const token = ((ctx.req || {}).cookies || {}).jwtClient || Cookie.get('jwtClient');
-
         try {
-            if (!token) {
-                throw new Error();
-            }
-            const userRes = await exams.post('/users/auth/checktoken', {}, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
+            const userRes = await onlineSchools.post('/users/auth/checktoken');
             auth.isSignedIn = true;
             auth.user = userRes.data.data.user;
         } catch (err) {
@@ -25,7 +17,7 @@ class _App extends App {
         }
 
         if (Component.getInitialProps) {
-            pageProps = await Component.getInitialProps(ctx, auth, token);
+            pageProps = await Component.getInitialProps(ctx, auth);
         }
 
         return {pageProps, auth};

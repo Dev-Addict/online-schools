@@ -8,7 +8,7 @@ const BaseLayout = ({children, className = '', auth, title = ''}) => {
     return (
         <div className="base-layout-container">
             <Head>
-                <title>Exams{title ? ` - ${title}` : ''}</title>
+                <title>Online Schools{title ? ` - ${title}` : ''}</title>
             </Head>
             <Header auth={auth}/>
             <main className={`base-layout-main ${className}`}>
