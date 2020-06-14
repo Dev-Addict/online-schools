@@ -42,7 +42,7 @@ header {
     color: #4E148C77;
 }
 
-header button {
+header button, .welcome button {
     padding: 9px 25px;
     background-color: #4E148C88;
     border: none;
@@ -52,12 +52,46 @@ header button {
     color: #F8F7FF;
 }
 
-header button:hover {
+header button:hover, .welcome button:hover {
     background-color: #4E148CCC;
+}
+
+.welcome button {
+    display: block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px;
+}
+
+.welcome {
+    text-align: center;
 }
 
 .bar-icon {
     display: none !important;
+}
+
+.welcome .content {
+    background-color: #F8F7FF22;
+    padding: 30px;
+    width: 40%;
+    border-radius: 20px;
+    position: relative;
+    left: 10%;
+    top: 50px;
+    font-size: 24px;
+}
+
+.welcome .action-block {
+    background-color: #F8F7FF22;
+    padding: 30px;
+    width: 40%;
+    border-radius: 20px;
+    position: relative;
+    left: 40%;
+    top: 60px;
+    font-size: 24px;
 }
 
 @media (max-width: 600px) {
@@ -93,5 +127,27 @@ header button:hover {
 
     header button {
         display: block;
+    }
+
+    .welcome .content {
+        background-color: #F8F7FF22;
+        padding: 20px;
+        width: 90%;
+        border-radius: 10px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 20px;
+    }
+
+    .welcome .action-block {
+        background-color: #F8F7FF22;
+        padding: 20px;
+        width: 90%;
+        border-radius: 10px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 20px;
     }
 }
