@@ -4,10 +4,10 @@ import Header from "./Header";
 import BasePage from "./BasePage";
 
 const BaseLayout = ({children, className = '', auth, title = ''}) => {
-
     return (
         <div className="base-layout-container">
             <Head>
+                <script src="https://kit.fontawesome.com/e59050275e.js" crossOrigin="anonymous"/>
                 <title>Online Schools{title ? ` - ${title}` : ''}</title>
             </Head>
             <Header auth={auth}/>
