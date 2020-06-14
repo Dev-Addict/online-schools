@@ -30,6 +30,9 @@ exports.updateOne = Model =>
                 throw new AppError('No document found with that ID', 404);
             }
 
+            doc.passwordResetToken = undefined;
+            doc.verifyEmailToken = undefined;
+
             res.status(200).json({
                 status: 'success',
                 data: {
@@ -63,6 +66,10 @@ exports.getOne = (Model, populateOptions) =>
             if (!doc) {
                 throw new AppError('No document found with this ID', 404);
             }
+
+            doc.passwordResetToken = undefined;
+            doc.verifyEmailToken = undefined;
+
             res.status(201).json({
                 status: 'success',
                 data: {
@@ -82,6 +89,12 @@ exports.getAll = Model =>
                     .limitFields()
                     .paginate();
             const docs = await features.query;
+
+            docs.forEach(doc => {
+                doc.passwordResetToken = undefined;
+                doc.verifyEmailToken = undefined;
+            });
+
             res.status(200).json({
                 status: 'success',
                 results: docs.length,

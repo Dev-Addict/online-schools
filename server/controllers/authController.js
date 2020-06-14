@@ -39,6 +39,16 @@ exports.restrictTo = (...rotes) => {
             if (rotes.includes(req.user.rote)) {
                 return next();
             }
+            if (rotes.includes('selfUser') &&
+                !req.body.rote &&
+                !req.body.password &&
+                !req.body.passwordChangedAt &&
+                !req.body.passwordResetToken &&
+                !req.body.passwordResetExpires &&
+                !req.body.isEmailVerified &&
+                !req.body.verifyEmailToken &&
+                !req.body.verifyEmailExpires) {
+            }
             throw new AppError('0xE0000F', 403);
         }
     );
@@ -93,8 +103,8 @@ exports.signIn = catchRequest(async (req, res) => {
     if (
         !username ||
         !password ||
-        /^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/.test(username) ||
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/.test(password)) {
+        !/^(?=[a-zA-Z0-9._]{4,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/.test(username) ||
+        !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,100}$/.test(password)) {
         throw new AppError('0xE00010', 400);
     }
     const user = await User.findOne({username}).select('+password');
@@ -178,7 +188,7 @@ exports.resetPassword = catchRequest(
                 .digest('hex');
         const user = await User.findOne({
             passwordResetToken: hashedToken,
-            passwordResetExpires: { $gt: Date.now() }
+            passwordResetExpires: {$gt: Date.now()}
         }).select('+passwordResetToken');
         if (!user) {
             throw new AppError('0xE00013', 400);
@@ -238,7 +248,7 @@ exports.verifyEmail = catchRequest(
                 .digest('hex');
         const user = await User.findOne({
             verifyEmailToken: hashedToken,
-            verifyEmailExpires: { $gt: Date.now() }
+            verifyEmailExpires: {$gt: Date.now()}
         }).select('+verifyEmailToken');
         if (!user) {
             throw new AppError('0xE00013', 400);

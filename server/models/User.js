@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, '0xE00007'],
         validate: {
-            validator: value => /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(value),
+            validator: value => /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(value),
             message: '0xE00008'
         },
         lowercase: true,
@@ -78,11 +78,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         select: false
     },
-    verifyEmailExpires: Date,
-    manager: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User'
-    }
+    verifyEmailExpires: Date
 });
 
 userSchema.methods.createResetPasswordToken = function() {
@@ -154,7 +150,7 @@ userSchema.pre('save', function (next) {
 });
 
 userSchema.pre('save', function (next) {
-    if (this.rote === 'admin') {
+    if (this.rote === 'admin' && this.isNew) {
         this.rote = 'user';
     }
     next();
