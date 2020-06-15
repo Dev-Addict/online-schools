@@ -2,6 +2,7 @@ import {useState} from 'react';
 import Router from "next/router";
 import Link from "next/link";
 import FontAwesome from 'react-fontawesome';
+import Cookie from 'js-cookie';
 
 import onlineSchools from "../api/onlineschools";
 
@@ -44,7 +45,10 @@ const Header = ({auth: {isSignedIn}}) => {
             {isSignedIn &&
             <a className={isOpen ? 'show' : 'hide'}>
                 <button onClick={
-                    () => onlineSchools.post('/users/auth/signout').then(() => Router.push('/'))
+                    () => onlineSchools.get('/users/auth/signout').then(() => {
+                        Cookie.remove('jwtClient');
+                        Router.push('/');
+                    })
                 }>
                     Sign Out
                 </button>

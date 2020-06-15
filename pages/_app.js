@@ -1,4 +1,5 @@
 import App from "next/app";
+import Cookie from 'js-cookie';
 
 import onlineSchools from '../api/onlineschools';
 import '../style/main.css';
@@ -8,8 +9,17 @@ class _App extends App {
         let pageProps = {};
         const auth = {};
 
+        const token = ((ctx.req || {}).cookies || {}).jwt || Cookie.get('jwtClient');
+
         try {
-            const userRes = await onlineSchools.post('/users/auth/checktoken');
+            if (!token) {
+                throw new Error();
+            }
+            const userRes = await onlineSchools.post('/users/auth/checktoken', {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             auth.isSignedIn = true;
             auth.user = userRes.data.data.user;
         } catch (err) {

@@ -132,7 +132,9 @@ exports.signUp = catchRequest(
         const user = await User.create({
             username: req.body.username,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName
         });
 
         // Welcome Email here

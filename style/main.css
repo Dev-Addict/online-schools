@@ -227,6 +227,12 @@ header button:hover, .welcome button:hover {
     border-radius: 20px;
 }
 
+.error {
+    color: #D36060;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
 @media (max-width: 600px) {
     .logo {
         display: inline-block;

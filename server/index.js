@@ -7,6 +7,8 @@ dotenv.config({
 
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const next = require('next');
 
 const APIRouter = require('./routes/APIRouter');
@@ -21,14 +23,19 @@ app.prepare()
     .then(() => {
         const server = express();
 
+        server.use(morgan('dev'));
+
         server.use(express.json({
             limit: '10kb'
         }));
 
+        server.use(cookieParser());
+
         server.use((req, res, next) => {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-            res.header("Access-Control-Allow-Methods", "*");
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+            res.header('Access-Control-Allow-Methods', '*');
+            res.header('Access-Control-Allow-Credentials', true);
             next();
         });
 
