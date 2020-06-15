@@ -17,14 +17,14 @@ const Header = ({auth: {isSignedIn}}) => {
             <nav className={isOpen ? 'show' : 'hide'}>
                 <ul className="nav-links">
                     <li>
-                        <Link href="/services">
+                        <Link href="/#services">
                             <a>
                                 Services
                             </a>
                         </Link>
                     </li>
                     <li>
-                        <Link href="/about">
+                        <Link href="/#about">
                             <a>
                                 About
                             </a>

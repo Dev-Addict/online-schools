@@ -42,7 +42,7 @@ header {
     color: #4E148C77;
 }
 
-header button, .welcome button {
+header button, .welcome button, .about a {
     padding: 9px 25px;
     background-color: #4E148C88;
     border: none;
@@ -92,6 +92,50 @@ header button:hover, .welcome button:hover {
     left: 40%;
     top: 60px;
     font-size: 24px;
+}
+
+.services {
+    margin-top: 60px;
+    padding: 30px;
+    text-align: center;
+}
+
+.services .main-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.service {
+    max-width: 300px;
+    display: inline-block;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px;
+    background-color: #F8F7FF33;
+}
+
+.service .title {
+    font-size: 20px;
+    margin: 10px;
+}
+
+.service .content {
+    font-size: 16px;
+}
+
+.about {
+    padding: 30px;
+    font-size: 20px;
+    background-color: #F8F7FF44;
+}
+
+.about a {
+    text-decoration: none;
+}
+
+.about a {
+    display: inline-block;
+    margin: 20px;
 }
 
 @media (max-width: 600px) {
