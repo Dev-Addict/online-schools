@@ -138,6 +138,95 @@ header button:hover, .welcome button:hover {
     margin: 20px;
 }
 
+.sign-form {
+    width: 260px;
+    position: relative;
+    margin: 6% auto;
+    background: #F8F7FF22;
+    padding: 25px;
+    border-radius: 30px;
+}
+
+.sign-buttons, .rote {
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 10px 2px #8B85C1;
+    border-radius: 30px;
+}
+
+.sign-toggle, .rote-toggle {
+    padding: 10px 30px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    color: #F8F7FF;
+}
+
+
+.rote-toggle {
+    padding: 10px 12px;
+}
+
+.sign-toggle-look, .rote-toggle-look {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 100%;
+    background-color: #8B85C1;
+    border-radius: 30px;
+    transition: 500ms;
+    border: none;
+}
+
+.rote-toggle-look {
+    width: 75px;
+}
+
+.sign-toggle-look.right {
+    left: 100px;
+}
+
+.sign-form form {
+    top: 100px;
+    position: absolute;
+    width: 220px;
+    transition: 500ms;
+    display: none;
+}
+
+.sign-form form.active {
+    display: inherit;
+}
+
+.sign-form input {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #F8F7FF;
+    background: transparent;
+    color: #F8F7FF;
+}
+
+.sign-form button[type=submit] {
+    width: 85%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    background-color: #8B85C1;
+    border: none;
+    margin-top: 20px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #F8F7FF;
+    border-radius: 20px;
+}
+
 @media (max-width: 600px) {
     .logo {
         display: inline-block;
