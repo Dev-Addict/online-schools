@@ -78,7 +78,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         select: false
     },
-    verifyEmailExpires: Date
+    verifyEmailExpires: Date,
+    requests: {
+        type: [mongoose.Schema.ObjectId],
+        ref: 'School'
+    }
 });
 
 userSchema.methods.createResetPasswordToken = function() {
